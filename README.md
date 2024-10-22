@@ -9,7 +9,7 @@ This project implements a bin-packing system utilizing AVL trees for efficient s
 - Custom Exception Handling: Handles errors specific to bin packing (e.g., object too large for any bin).
 
 ## File Structure
-### 1. main.py
+### 1. 'main.py'
 This is the entry point of the project where the bin-packing operations are controlled. The script takes inputs (objects and bins) and manages the packing process using the algorithms defined.
 
 ##### Key components:
@@ -18,24 +18,24 @@ This is the entry point of the project where the bin-packing operations are cont
 - Calls necessary functions from the AVL tree and bin system modules.
 - Implements the bin-packing logic using the smallest and largest fit strategies.
 
-### 2. gcms.py
+### 2. 'gcms.py'
 This file contains functions related to garbage collection or memory management within the project. It ensures that the system runs efficiently without memory leaks by properly managing object creation and deletion as required.
 
-### 3. bin.py
+### 3. 'bin.py'
 This module defines the Bin class, which is essential to the bin-packing system. Each bin has attributes such as bin_id, capacity, and a collection of objects it contains.
 
 #### Key features:
 
 - Bin class: Represents a container that can hold multiple objects.
 - Methods: Includes methods to add, remove, or check the capacity of the bin.
-### 4. objects.py
+### 4. 'objects.py'
 This file defines two key components:
 
 - Color Enum: Defines object colors (BLUE, YELLOW, RED, and GREEN).
 - Object Class: Represents an object with object_id, size, color, and a bin_id (initialized as None).
 Objects are packed into bins based on their size using either the smallest fit or largest fit algorithms.
 
-### 5. avl.py
+### 5. 'avl.py'
 This file implements an AVL Tree, a self-balancing binary search tree used to maintain the bins in a sorted order based on their capacity. AVL trees allow for efficient search, insertion, and deletion of bins, ensuring that the system remains efficient as the number of bins grows.
 
 #### Key methods:
@@ -43,14 +43,14 @@ This file implements an AVL Tree, a self-balancing binary search tree used to ma
 - Insert: Adds a new bin to the tree.
 - Delete: Removes a bin from the tree.
 - Search: Locates bins with appropriate capacity for an object.
-### 6. node.py
+### 6. 'node.py'
 This file defines the Node class, which is used in the AVL tree structure. Each node contains information about a bin and links to its child nodes.
 
-####Key attributes:
+#### Key attributes:
 
 - Bin: Each node represents a bin.
 - Left and Right Children: Pointers to child nodes in the AVL tree.
-### 7. exceptions.py
+### 7. 'exceptions.py'
 This file defines custom exceptions used throughout the system to handle errors specific to the bin-packing process. For example:
 
 - BinCapacityExceededException: Raised when an object is too large for any available bin.
