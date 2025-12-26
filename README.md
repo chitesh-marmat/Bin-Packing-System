@@ -1,69 +1,84 @@
-# Bin-Packing System  
-## Overview
-This project implements a bin-packing system utilizing AVL trees for efficient sorting and searching, combined with smallest fit and largest fit algorithms to determine the optimal placement of objects into bins based on their size and other properties. The system ensures that items are packed into bins either by filling the smallest suitable bin (smallest fit) or by placing them into the largest available bin (largest fit).
+## Bin Packing System with AVL Trees
 
-## Key Features:
-- AVL Tree Implementation: For efficient bin management and quick insertion/search.
-- Smallest Fit Algorithm: Finds the smallest bin that can accommodate an object.
-- Largest Fit Algorithm: Places objects into the largest available bin.
-- Custom Exception Handling: Handles errors specific to bin packing (e.g., object too large for any bin).
+### Short Description
 
-## File Structure
-### 1. 'main.py'
-This is the entry point of the project where the bin-packing operations are controlled. The script takes inputs (objects and bins) and manages the packing process using the algorithms defined.
+A course project implementing a one-dimensional bin packing system in Python using self-balancing binary search trees (AVL trees) to manage bins and heuristic placement strategies.
 
-##### Key components:
+## Problem Description
 
-- Manages input/output for bin-packing operations.
-- Calls necessary functions from the AVL tree and bin system modules.
-- Implements the bin-packing logic using the smallest and largest fit strategies.
+The **bin packing problem** is a classical combinatorial optimization problem where a set of items of varying sizes must be assigned to bins of fixed capacity such that space is used efficiently and the number of bins used is minimized. This problem is known to be NP-hard in the general case.  [oai_citation:0‡Wikipedia](https://en.wikipedia.org/wiki/Bin_packing_problem?utm)
 
-### 2. 'gcms.py'
-This file contains functions related to garbage collection or memory management within the project. It ensures that the system runs efficiently without memory leaks by properly managing object creation and deletion as required.
+## Approach
 
-### 3. 'bin.py'
-This module defines the Bin class, which is essential to the bin-packing system. Each bin has attributes such as bin_id, capacity, and a collection of objects it contains.
+This implementation uses the following verified techniques:
 
-#### Key features:
+- **AVL Tree for Bin Management:** Bins are maintained in a self-balancing binary search tree keyed by remaining capacity to support efficient search, insertion, and deletion as objects are packed or bins are updated.
+- **Heuristic Placement Strategies:**
+  - **Smallest Fit:** For each object, find the smallest bin that can accommodate it to reduce wasted capacity.
+  - **Largest Fit:** As an alternative, place objects into the largest available bin that fits, which may be useful under certain distributions of object sizes.
 
-- Bin class: Represents a container that can hold multiple objects.
-- Methods: Includes methods to add, remove, or check the capacity of the bin.
-### 4. 'objects.py'
-This file defines two key components:
+Custom exceptions handle basic error conditions such as an object that cannot fit in any existing bin.
 
-- Color Enum: Defines object colors (BLUE, YELLOW, RED, and GREEN).
-- Object Class: Represents an object with object_id, size, color, and a bin_id (initialized as None).
-Objects are packed into bins based on their size using either the smallest fit or largest fit algorithms.
+> No neural networks, reinforcement learning, or external solvers are used; this is a heuristic, deterministic Python implementation.
 
-### 5. 'avl.py'
-This file implements an AVL Tree, a self-balancing binary search tree used to maintain the bins in a sorted order based on their capacity. AVL trees allow for efficient search, insertion, and deletion of bins, ensuring that the system remains efficient as the number of bins grows.
+## Repository Structure
 
-#### Key methods:
+- `main.py` — Entry point that orchestrates input parsing and the bin packing process.
+- `bin.py` — Definition of the `Bin` class, representing a bin with capacity and packed objects.
+- `object.py` — Definition of the `Object` class and ancillary enums (e.g., color).
+- `avl.py` — Implementation of the AVL tree structure used to manage bins.
+- `node.py` — Node abstraction for the AVL tree encapsulating a bin.
+- `exceptions.py` — Custom exception types used to signal packing errors.
+- `gcms.py` — Auxiliary functions for memory or object lifecycle management (as inferred from project summary).
 
-- Insert: Adds a new bin to the tree.
-- Delete: Removes a bin from the tree.
-- Search: Locates bins with appropriate capacity for an object.
-### 6. 'node.py'
-This file defines the Node class, which is used in the AVL tree structure. Each node contains information about a bin and links to its child nodes.
+## How to Run
 
-#### Key attributes:
+1. Ensure Python 3.x is installed.
+2. Place input data (objects and bins) in the expected format as required by `main.py`.
+3. Run:
 
-- Bin: Each node represents a bin.
-- Left and Right Children: Pointers to child nodes in the AVL tree.
-### 7. 'exceptions.py'
-This file defines custom exceptions used throughout the system to handle errors specific to the bin-packing process. For example:
+```bash
+python main.py
 
-- BinCapacityExceededException: Raised when an object is too large for any available bin.
-- ObjectAlreadyPackedException: Raised if an object is being packed more than once.
+4. The output reflects the bins used and how objects are packed into each bin.
 
-## Algorithms
-### 1. Smallest Fit Algorithm
-This algorithm places each object into the smallest bin that has enough capacity to accommodate it. This approach aims to reduce space wastage by utilizing bins as efficiently as possible.
+**Note:**  
+The repository does not define a formal command-line interface. You may need to adapt `main.py` to suit specific input formats or testing requirements.
 
-### 2. Largest Fit Algorithm
-In contrast, the largest fit algorithm places objects into the largest bin available that can accommodate the object. This can be useful when dealing with bins that have very large capacities, ensuring that they are utilized when smaller bins are insufficient.
-## Conclusion
-This project implements a bin-packing system using AVL trees for efficient bin management, combined with smallest fit and largest fit algorithms to optimize object placement. It mirrors real-world challenges like warehouse storage optimization, where items of varying sizes must be packed into limited spaces efficiently. The system ensures scalability, error handling, and can be extended with additional constraints, providing a solid foundation for applications like logistics, shipping, and inventory management.
- 
+---
 
+## Complexity Analysis
 
+### Data Structures
+
+- **AVL Tree Operations**
+  - Search, insert, and delete operations each run in `O(log n)` time, where `n` is the number of bins.
+  - This efficiency is guaranteed by the height-balanced property of AVL trees.
+
+### Algorithms
+
+Let:
+- `n` = number of objects  
+- `m` = number of bins  
+
+- **Smallest Fit / Largest Fit Heuristic Loop**
+
+  For each object:
+  - Searching for a suitable bin in the AVL tree: `O(log m)`
+  - Updating the AVL tree after placing the object (remove and reinsert bin): `O(log m)`
+
+Overall time complexity:
+
+```text
+O(n log m)
+
+## Edge Cases Considered
+
+- **Object Too Large**
+  - If an object cannot fit into any available bin, a custom exception (e.g., `BinCapacityExceededException`) is raised, as defined in the repository.
+
+- **Duplicate Packing**
+  - Attempting to pack the same object more than once triggers a handled error through custom exception handling.
+
+- **Empty Input**
+  - Cases with no bins or no objects are handled without crashing, based on defensive checks and exception usage in the code.
