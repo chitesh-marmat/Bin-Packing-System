@@ -38,7 +38,8 @@ Custom exceptions handle basic error conditions such as an object that cannot fi
 3. Run:
 
 ```bash
-python main.py'''
+python main.py
+``` 
 
 4. The output reflects the bins used and how objects are packed into each bin.
 
