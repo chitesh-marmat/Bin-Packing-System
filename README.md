@@ -1,6 +1,6 @@
 ## Bin Packing System with AVL Trees
 
-### Short Description
+ 
 
 A course project implementing a one-dimensional bin packing system in Python using self-balancing binary search trees (AVL trees) to manage bins and heuristic placement strategies.
 
@@ -38,7 +38,7 @@ Custom exceptions handle basic error conditions such as an object that cannot fi
 3. Run:
 
 ```bash
-python main.py
+python main.py'''
 
 4. The output reflects the bins used and how objects are packed into each bin.
 
